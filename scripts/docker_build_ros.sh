@@ -179,14 +179,14 @@ build_ros()
 
 for DISTRO in ${BUILD_DISTRO[@]}; do
 	for PACKAGE in ${BUILD_PACKAGES[@]}; do
-		build_ros $DISTRO $PACKAGE $BASE_IMAGE "`echo $PACKAGE | tr '_' '-'`-"
+		# build_ros $DISTRO $PACKAGE "dustynv/ros:foxy-slam-l4t-r32.6.1" "nexi-barebone-"
 		
-		if [[ "$WITH_PYTORCH" == "on" ]] && [[ "$DISTRO" != "melodic" ]] && [[ "$DISTRO" != "eloquent" ]]; then
-			build_ros $DISTRO $PACKAGE $BASE_IMAGE_PYTORCH "pytorch-"
-		fi
+		#if [[ "$WITH_PYTORCH" == "on" ]] && [[ "$DISTRO" != "melodic" ]] && [[ "$DISTRO" != "eloquent" ]]; then
+		#	build_ros $DISTRO $PACKAGE $BASE_IMAGE_PYTORCH "pytorch-"
+		#fi
 		
 		if [[ "$WITH_SLAM" == "on" ]] && [[ "$DISTRO" == "foxy" ]] || [[ "$DISTRO" == "galactic" ]]; then
-			BASE_IMAGE_SLAM="ros:$DISTRO-pytorch-l4t-r$L4T_VERSION"
+			BASE_IMAGE_SLAM="dustynv/ros:$DISTRO-pytorch-l4t-r$L4T_VERSION"
 			build_ros $DISTRO $PACKAGE $BASE_IMAGE_SLAM "slam-" "Dockerfile.ros.slam"
 		fi
 	done
